@@ -1,16 +1,21 @@
 namespace ScratchpadNet;
 
 using System;
+using System.Linq;
 using System.Net.Http;
 
 public class ServiceThingyWithHttpClientIncorrect : IServiceThingy
 {
-    private static HttpClient _httpClient = new HttpClient();
+    private static readonly HttpClient _httpClient = new HttpClient();
+    private static int _instanceCount = 0;
 
     public ServiceThingyWithHttpClientIncorrect()
     {
-        _httpClient.DefaultRequestHeaders.Add("User-Agent", "ServiceThingy");
-        Console.WriteLine("ServiceThingyWithHttpClientIncorrect created");
+        _instanceCount++;
+        _httpClient.DefaultRequestHeaders.Add($"Custom-Header-{_instanceCount}", "value");
+        Console.WriteLine(
+            $"{nameof(ServiceThingyWithHttpClientIncorrect)} created with {_httpClient.DefaultRequestHeaders.Count()} headers"
+        );
     }
 
     public int GetNumberOfHeaders()

@@ -10,13 +10,14 @@ public class ServiceThingyWithHttpClientStatic : IServiceThingy
 
     static ServiceThingyWithHttpClientStatic()
     {
-        Console.WriteLine("ServiceThingy created");
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "ServiceThingy");
     }
 
     public ServiceThingyWithHttpClientStatic()
     {
-        Console.WriteLine("ServiceThingy created");
+        Console.WriteLine(
+            $"{nameof(ServiceThingyWithHttpClientStatic)} created with {_httpClient.DefaultRequestHeaders.Count()} headers"
+        );
     }
 
     public int GetNumberOfHeaders()

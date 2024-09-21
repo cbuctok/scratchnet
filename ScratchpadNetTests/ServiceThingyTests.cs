@@ -9,13 +9,6 @@ public class ServiceThingyTests
     private const int sampleSize = 10;
 
     [TestMethod]
-    public void SimpleTest()
-    {
-        var serviceThingy = new ServiceThingyWithHttpClientStatic();
-        Assert.AreEqual(1, serviceThingy.GetNumberOfHeaders());
-    }
-
-    [TestMethod]
     public void StaticTest10()
     {
         var arrayOfServiceThingies = CreateServiceThingies<ServiceThingyWithHttpClientStatic>(
@@ -53,7 +46,7 @@ public class ServiceThingyTests
         // assert all have the same number of headers
         foreach (var serviceThingy in arrayOfServiceThingies)
         {
-            Assert.AreEqual(1, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(sampleSize, serviceThingy.GetNumberOfHeaders());
         }
     }
 

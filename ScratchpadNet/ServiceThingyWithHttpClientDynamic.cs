@@ -4,16 +4,16 @@ using System;
 
 public class ServiceThingyWithHttpClientDynamic : IServiceThingy
 {
-    HttpClient httpClient = new HttpClient();
+    HttpClient _httpClient = new HttpClient();
 
     public ServiceThingyWithHttpClientDynamic()
     {
-        Console.WriteLine("ServiceThingy created");
-        httpClient.DefaultRequestHeaders.Add("User-Agent", "ServiceThingy");
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "ServiceThingy");
+        Console.WriteLine($"{nameof(ServiceThingyWithHttpClientDynamic)} created with {_httpClient.DefaultRequestHeaders.Count()} headers");
     }
 
     public int GetNumberOfHeaders()
     {
-        return httpClient.DefaultRequestHeaders.Count();
+        return _httpClient.DefaultRequestHeaders.Count();
     }
 }
