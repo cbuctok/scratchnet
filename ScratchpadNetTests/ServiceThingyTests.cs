@@ -1,10 +1,13 @@
 namespace ScratchpadNetTests;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScratchpadNet;
 
 [TestClass]
 public class ServiceThingyTests
 {
+    private const int sampleSize = 10;
+
     [TestMethod]
     public void SimpleTest()
     {
@@ -15,15 +18,9 @@ public class ServiceThingyTests
     [TestMethod]
     public void StaticTest10()
     {
-        const int expected = 10;
-
-        var arrayOfServiceThingies = new IServiceThingy[expected];
-
-        for (var i = 0; i < expected; i++)
-        {
-            var serviceThingy = new ServiceThingyWithHttpClientStatic();
-            arrayOfServiceThingies[i] = serviceThingy;
-        }
+        var arrayOfServiceThingies = CreateServiceThingies<ServiceThingyWithHttpClientStatic>(
+            sampleSize
+        );
 
         // assert all have the same number of headers
         foreach (var serviceThingy in arrayOfServiceThingies)
@@ -35,20 +32,42 @@ public class ServiceThingyTests
     [TestMethod]
     public void DynamicTest10()
     {
-        const int expected = 10;
-
-        var arrayOfServiceThingies = new IServiceThingy[expected];
-
-        for (var i = 0; i < expected; i++)
-        {
-            var serviceThingy = new ServiceThingyWithHttpClientDynamic();
-            arrayOfServiceThingies[i] = serviceThingy;
-        }
+        var arrayOfServiceThingies = CreateServiceThingies<ServiceThingyWithHttpClientDynamic>(
+            sampleSize
+        );
 
         // assert all have the same number of headers
         foreach (var serviceThingy in arrayOfServiceThingies)
         {
             Assert.AreEqual(1, serviceThingy.GetNumberOfHeaders());
         }
+    }
+
+    [TestMethod]
+    public void IncorrectTest10()
+    {
+        var arrayOfServiceThingies = CreateServiceThingies<ServiceThingyWithHttpClientIncorrect>(
+            sampleSize
+        );
+
+        // assert all have the same number of headers
+        foreach (var serviceThingy in arrayOfServiceThingies)
+        {
+            Assert.AreEqual(1, serviceThingy.GetNumberOfHeaders());
+        }
+    }
+
+    // CreateServiceThingies creates a number of ServiceThingies of a given type and returns them in an array
+    private static IServiceThingy[] CreateServiceThingies<T>(int count)
+        where T : IServiceThingy, new()
+    {
+        var arrayOfServiceThingies = new IServiceThingy[count];
+
+        for (var i = 0; i < count; i++)
+        {
+            arrayOfServiceThingies[i] = new T();
+        }
+
+        return arrayOfServiceThingies;
     }
 }
