@@ -18,7 +18,8 @@ public class ServiceThingyTests
         // assert all have the same number of headers
         foreach (var serviceThingy in arrayOfServiceThingies)
         {
-            Assert.AreEqual(1, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(2, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(1, serviceThingy.GetNumberOfAcceptArguments());
         }
     }
 
@@ -32,7 +33,8 @@ public class ServiceThingyTests
         // assert all have the same number of headers
         foreach (var serviceThingy in arrayOfServiceThingies)
         {
-            Assert.AreEqual(1, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(2, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(1, serviceThingy.GetNumberOfAcceptArguments());
         }
     }
 
@@ -46,7 +48,8 @@ public class ServiceThingyTests
         // assert all have the same number of headers
         foreach (var serviceThingy in arrayOfServiceThingies)
         {
-            Assert.AreEqual(sampleSize, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(sampleSize + 1, serviceThingy.GetNumberOfHeaders());
+            Assert.AreEqual(sampleSize, serviceThingy.GetNumberOfAcceptArguments());
         }
     }
 
